@@ -352,27 +352,28 @@ line-height:100%;
 }
 .tweet-date-left {
 	font-size: small;
-	font-weight: normal;
-	position: absolute;
-	top: 682px;
-	z-index: 999;
-	left: 0px;
+font-weight: normal;
+position: absolute;
+top: 663px;
+z-index: 999;
+left: 25px;
 }
 .tweet-user-left {
-	font-size: small;
-	font-weight: normal;
+	font-size: 15px;
+	font-weight: bold;
 	position: absolute;
-	top: 682px;
+	top: 625px;
 	z-index: 999;
-	left: 0px;
+	left: 196px;
 }
 .tweet-user-handle-left {
-	font-size: small;
-	font-weight: normal;
-	position: absolute;
-	top: 682px;
-	z-index: 999;
-	left: 0px;
+font-size: small;
+font-weight: normal;
+position: absolute;
+top: 642px;
+z-index: 999;
+left: 194px;
+color: #666;
 }
 
 .tweet-outer-right {
@@ -389,35 +390,33 @@ margin-left: 35px;
 margin-top: 0px;
 	-webkit-box-shadow: 5px 5px 15px #666;
 	box-shadow: 5px 5px 15px #666;
-
-
-
 }
 
 
 .tweet-date-right {
 	font-size: small;
-	font-weight: normal;
-	position: absolute;
-	top: 682px;
-	z-index: 999;
-	left: 0px;
+font-weight: normal;
+position: absolute;
+z-index: 999;
+left: 688px;
+top: 667px;
+
 }
 .tweet-user-right {
-	font-size: small;
-	font-weight: normal;
+	font-size: 15px;
+	font-weight: bold;
 	position: absolute;
-	top: 682px;
 	z-index: 999;
-	left: 0px;
-}
+left: 858px;
+top: 631px;}
 .tweet-user-handle-right {
 	font-size: small;
-	font-weight: normal;
-	position: absolute;
-	top: 682px;
-	z-index: 999;
-	left: 0px;
+font-weight: normal;
+position: absolute;
+z-index: 999;
+left: 858px;
+top: 650px;
+color: #666;
 }
 
 

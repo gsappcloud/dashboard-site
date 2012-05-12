@@ -687,6 +687,7 @@ if ($display_type == 'Full screen') {
 					//---------------------------------- RIGHT
 					print '<div class="separator">&nbsp;</div>' .
 								'<div class="right-tweet">';
+								
 
 					$tweet_created = $right_twitter_data->created_at;
 					$pos_colon = strpos($tweet_created, ':');
