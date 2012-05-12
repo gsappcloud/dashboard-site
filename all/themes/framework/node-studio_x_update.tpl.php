@@ -694,7 +694,9 @@ if ($display_type == 'Full screen') {
 					$tweet_created = substr($tweet_created, 0, ($pos_colon - 2));
 					$media = $right_twitter_data->entities->media;
 					$tweet_text = $right_twitter_data->text;
+					$m= false;
 					if (($media != null) && ($media[0]->type == 'photo')) {
+					$m=true;
 						$img_url = $media[0]->media_url;
 							if (strlen($img_url) > 10) {
 								
@@ -741,9 +743,9 @@ if ($display_type == 'Full screen') {
 										$new_w 	
 										. 'px; width: 360px; margin-left: -' . $crop_dist . 'px;" /></div><div class="tweet-inner-img-text">' . 
 										'<p class="tweet-date-media-right">' . $tweet_created . '</p>' . $tweet_text .
-										'<p class="tweet-user-media-right">' . $left_twitter_data->user->name .
+										'<p class="tweet-user-media-right">' . $right_twitter_data->user->name .
 										'</p>' . 
-										'<p class="tweet-user-handle-media-right">@' . $left_twitter_data->user->screen_name . '</p>' . 
+										'<p class="tweet-user-handle-media-right">@' . $right_twitter_data->user->screen_name . '</p>' . 
 										'<br/></div></div></div>';
 									}
 								} else {
@@ -766,6 +768,17 @@ if ($display_type == 'Full screen') {
 								'<p class="tweet-user-handle-right">@' . $right_twitter_data->user->screen_name . '</p>' . 
 								'</div></div>';
 					}
+					if ($m == true) {
+					print '<div class="slideshow-caption-line-split-right-m">' .
+					'<div id="caption-left">' .
+						'<div id="studio-x-location">Studio-X<br/>' . $location . '</div>' .
+					'</div>' . // end left
+					'<div id="caption-right">' .
+						'<div id="title-line"></div>' .
+					'</div>' .
+					'</div>';
+
+					} else {
 					print '<div class="slideshow-caption-line-split-right">' .
 					'<div id="caption-left">' .
 						'<div id="studio-x-location">Studio-X<br/>' . $location . '</div>' .
@@ -774,7 +787,7 @@ if ($display_type == 'Full screen') {
 						'<div id="title-line"></div>' .
 					'</div>' .
 					'</div>';
-					
+					}
 					
 										print '</div>';
 
