@@ -6,6 +6,9 @@
   <div class="content">
   <?php
   
+  	//TODO v2 - abstract into manageable functions!
+  	
+  
     $display_type = $node->field_x_display[0]['value'];
     //Full screen
 
@@ -466,143 +469,13 @@ if ($display_type == 'Full screen') {
 
 						
 
-						/*
-						
-						
-    [text] => Epic week ahead @studioxnyc: NASA astrobiologist on Mon, drowned nations, Google, &amp; the future of sovereignty on Tues | http://t.co/fQB6DZXw
-    [source] => <a href="http://www.twhirl.org" rel="nofollow">Seesmic twhirl</a>
-    [truncated] => 
-    [in_reply_to_status_id] => 
-    [in_reply_to_status_id_str] => 
-    [in_reply_to_user_id] => 
-    [in_reply_to_user_id_str] => 
-    [in_reply_to_screen_name] => 
-    [user] => stdClass Object
-        (
-            [id] => 72552542
-            [id_str] => 72552542
-            [name] => Studio-X NYC
-            [screen_name] => StudioXNYC
-            [location] => New York, NY
-            [description] => Studio-X NYC is an off-campus event space and urban futures think tank, part of a global network run by Columbia University's GSAPP.
-            [url] => http://www.arch.columbia.edu/studiox/newyork
-            [protected] => 
-            [followers_count] => 3301
-            [friends_count] => 493
-            [listed_count] => 176
-            [created_at] => Tue Sep 08 13:32:18 +0000 2009
-            [favourites_count] => 8
-            [utc_offset] => -18000
-            [time_zone] => Eastern Time (US & Canada)
-            [geo_enabled] => 
-            [verified] => 
-            [statuses_count] => 899
-            [lang] => en
-            [contributors_enabled] => 
-            [is_translator] => 
-            [profile_background_color] => 9AE4E8
-            [profile_background_image_url] => http://a0.twimg.com/profile_background_images/35728012/_DSF0098.jpg
-            [profile_background_image_url_https] => https://si0.twimg.com/profile_background_images/35728012/_DSF0098.jpg
-            [profile_background_tile] => 1
-            [profile_image_url] => http://a0.twimg.com/profile_images/1508682461/x_normal.jpg
-            [profile_image_url_https] => https://si0.twimg.com/profile_images/1508682461/x_normal.jpg
-            [profile_link_color] => 0084B4
-            [profile_sidebar_border_color] => BDDCAD
-            [profile_sidebar_fill_color] => DDFFCC
-            [profile_text_color] => 333333
-            [profile_use_background_image] => 1
-            [show_all_inline_media] => 1
-            [default_profile] => 
-            [default_profile_image] => 
-            [following] => 
-            [follow_request_sent] => 
-            [notifications] => 
-        )
-
-    [geo] => 
-    [coordinates] => 
-    [place] => 
-    [contributors] => 
-    [retweet_count] => 1
-    [entities] => stdClass Object
-        (
-            [hashtags] => Array
-                (
-                )
-
-            [urls] => Array
-                (
-                    [0] => stdClass Object
-                        (
-                            [url] => http://t.co/fQB6DZXw
-                            [expanded_url] => http://mim.io/fef492
-                            [display_url] => mim.io/fef492
-                            [indices] => Array
-                                (
-                                    [0] => 124
-                                    [1] => 144
-                                )
-
-                        )
-
-                )
-
-            [user_mentions] => Array
-                (
-                    [0] => stdClass Object
-                        (
-                            [screen_name] => StudioXNYC
-                            [name] => Studio-X NYC
-                            [id] => 72552542
-                            [id_str] => 72552542
-                            [indices] => Array
-                                (
-                                    [0] => 16
-                                    [1] => 27
-                                )
-
-                        )
-
-                )
-
-        )
-
-    [favorited] => 
-    [retweeted] => 
-    [possibly_sensitive] => 
-						
-						*/
+					
 
 					} // else: url len < 10 skip
 
 				
 				} // end foreach ind twitter loop
-
-
-				/*
-				
 		
-				
-				
-    [0] => Array
-        (
-            [url] => http://twitter.com/
-            [title] => 
-            [attributes] => Array
-                (
-                )
-
-            [fragment] => !/StudioXNYC/status/199246879115055105
-            [display_url] => http://twitter.com/#!/StudioXNYC/status/199246879115055105
-            [display_title] => http://twitter.com/#!/StudioXNYC/status/199246879115055105
-            [label] => Twitter Link
-            [view] => <a href="http://twitter.com/#!/StudioXNYC/status/199246879115055105">http://twitter.com/#!/StudioXNYC/status/199246879115055105</a>
-        )
-        
-        */
-        
-        
-				
 			print '</div>'; // ending inner slideshows for ind. tweets
 			print '<div id="slideshow-caption-line">' .
 					'<div id="caption-left">' .
@@ -639,22 +512,279 @@ if ($display_type == 'Full screen') {
 				
 			} else {
 				// twitter ind items
-				/*
-					580 x 580
+				$twitter_links = $node->field_x_link_twitter;
+				$split_links = $node->field_x_link_t_split;
+				
+				// add only non-empty items
+				$left_items = array();
+				$right_items = array();
+				foreach($twitter_links as $key=>$value) {
+					if (strlen($value['fragment']) > 10) {
+						$left_items[] = $value;
+					}
+				}
+				foreach($split_links as $key=>$value) {
+					if (strlen($value['fragment']) > 10) {
+						$right_items[] = $value;
+					}
+				}
+				
+				$num_l = count($left_items);
+				$num_r = count($right_items);
+				// normalize sizes				
+				if ($num_l > $num_r) {
+					$diff = $num_l - $num_r;
+					$i = 0;
+					for ($c = 0; $c < $diff; $c++) {
+						array_push($right_items, $right_items[$i]);
+						$i++;
+						if ($i > $num_r) {
+							$i = 0;
+						}
+					}
 					
-					8 px separator
+				} else if ($num_r > $num_l) {
+					$diff = $num_r - $num_l;
+					$i = 0;
+					for ($c = 0; $c < $diff; $c++) {
+						array_push($left_items, $left_items[$i]);
+						$i++;
+						if ($i > $num_l) {
+							$i = 0;
+						}
+					}
+				}
+				
+				
+				
+
+				// build slideshow
+				print '<div class="inner-slideshow-content">';
+				for ($c = 0; $c < count($left_items); $c++) {
+					$left_item = $left_items[$c];
+					$right_item = $right_items[$c];
+					$left_id_a = explode('/', $left_item['fragment']);
+					$left_id = $left_id_a[3];
+					$right_id_a = explode('/', $right_item['fragment']);
+					$right_id = $right_id_a[3];
+					$left_f = file_get_contents('https://api.twitter.com/1/statuses/show.json?id=' . $left_id . '&include_entities=true');
+					$left_twitter_data = json_decode($left_f);
+					$right_f = file_get_contents('https://api.twitter.com/1/statuses/show.json?id=' . $right_id . '&include_entities=true');
+					$right_twitter_data = json_decode($right_f);
 					
-					what if the lenghts differ???
-					i.e left has 3
-					right has 12
-					it needs to cycle as 2 per
 					
-					find the GCD and fill arrays???
-					just fill the shorter array with items looping from start until it meets len of longest array
+					if (
+						(is_object($left_twitter_data)) &&
+						(is_object($left_twitter_data))
+					) {
+						//display
+					//580 x 580
+					//8 px separator
+					
+							/*
+
+					*/
+					
+					$tweet_created = $left_twitter_data->created_at;
+					$pos_colon = strpos($tweet_created, ':');
+					$tweet_created = substr($tweet_created, 0, ($pos_colon - 2));
+					$media = $left_twitter_data->entities->media;
+					$tweet_text = $left_twitter_data->text;
+					
+					print '<div class="split-tweet"><div class="left-tweet">';
+					//---------------------------------- LEFT
+
+					if (($media != null) && ($media[0]->type == 'photo')) {
+					$img_url = $media[0]->media_url;
+							if (strlen($img_url) > 10) {
+								
+								$sizes = $media[0]->sizes;
+								$large = $sizes->large;
+								$img_w = $large->w;
+								$img_h = $large->h;
+								$img_ratio = $img_w / $img_h;
+								$scale_factor = null;
+								$scale_to_width = 500;
+								$scale_to_height = 500;
+								$img_scale_down_w = $img_w / $scale_to_width;
+								$img_scale_down_h = $img_h / $scale_to_height;
+								$scaled_height = intval($img_h / $img_scale_down_w);
+							
+							
+								if ($img_ratio > 1.0) {
+									// horizontal
+									// scale by h
+									$h_f = $img_h / 360;
+									//print "HF $h_f<br/>";
+									// so what is the width then
+									$new_w = intval($img_w / $h_f);
+									//print "NW $new_w<br/>";
+									$crop_dist = intval(($new_w - 360) / 2);
+									print '<div class="tweet-outer-left"><div class="tweet-inner-img-left"><div class="twitter-img-left"><img src="' . $img_url . '" style="width: ' . 		
+										$new_w 	
+										. 'px; height: 360px; margin-left: -' . $crop_dist . 'px;" /></div><div class="tweet-inner-img-text">' . 
+										'<p class="tweet-date-media-left">' . $tweet_created . '</p>' . $tweet_text .
+										'<p class="tweet-user-media-left">' . $left_twitter_data->user->name .
+										'</p>' . 
+										'<p class="tweet-user-handle-media-left">@' . $left_twitter_data->user->screen_name . '</p>' . 
+										'<br/></div></div></div>';
+									} else {
+										// vertical
+									// scale by h
+									$h_f = $img_w / 360;
+									//print "HF $h_f<br/>";
+									// so what is the width then
+									$new_w = intval($img_h / $h_f);
+									//print "NW $new_w<br/>";
+									$crop_dist = intval(($new_h - 360) / 2);
+									print '<div class="tweet-outer-left"><div class="tweet-inner-img-left"><div class="twitter-img-left"><img src="' . $img_url . '" style="height: ' . 		
+										$new_w 	
+										. 'px; width: 360px; margin-left: -' . $crop_dist . 'px;" /></div><div class="tweet-inner-img-text">' . 
+										'<p class="tweet-date-media-left">' . $tweet_created . '</p>' . $tweet_text .
+										'<p class="tweet-user-media-left">' . $left_twitter_data->user->name .
+										'</p>' . 
+										'<p class="tweet-user-handle-media-left">@' . $left_twitter_data->user->screen_name . '</p>' . 
+										'<br/></div></div></div>';
+									}
+								} else {
+									// media url too short, assume regular tweet w/o media
+									print '<div class="tweet-outer-left"><div class="tweet-inner">' .
+									'<p class="tweet-date-left">' . $tweet_created .
+									'</p>' . $tweet_text . '<br/>' .
+									'<p class="tweet-user-left">' . $left_twitter_data->user->name .
+								'</p>' . 
+								'<p class="tweet-user-handle-left">@' . $left_twitter_data->user->screen_name . '</p>' . 
+								'</div></div>';
+								}
+						
+						
+						
+						
+						
+						
+						
+					} else {
+						// regular text tweet
+						print '<div class="tweet-outer-left"><div class="tweet-inner">' .
+								'<p class="tweet-date-left">' . $tweet_created .
+								'</p>' . $tweet_text . '<br/>' .
+								'<p class="tweet-user-left">' . $left_twitter_data->user->name .
+								'</p>' . 
+								'<p class="tweet-user-handle-left">@' . $left_twitter_data->user->screen_name . '</p>' . 
+								'</div></div>';
+					}
+
+					print '<div class="slideshow-caption-line-split-left">' .
+					'<div id="caption-left">' .
+						'<div id="studio-x-location">Studio-X<br/>' . $location . '</div>' .
+					'</div>' . // end left
+					'<div id="caption-right">' .
+						'<div id="title-line"></div>' .
+					'</div>' .
+					'</div>';
+					
+					print '</div>';					
+					//---------------------------------- RIGHT
+					print '<div class="separator">&nbsp;</div>' .
+								'<div class="right-tweet">';
+
+					$tweet_created = $right_twitter_data->created_at;
+					$pos_colon = strpos($tweet_created, ':');
+					$tweet_created = substr($tweet_created, 0, ($pos_colon - 2));
+					$media = $right_twitter_data->entities->media;
+					$tweet_text = $right_twitter_data->text;
+					if (($media != null) && ($media[0]->type == 'photo')) {
+						$img_url = $media[0]->media_url;
+							if (strlen($img_url) > 10) {
+								
+								$sizes = $media[0]->sizes;
+								$large = $sizes->large;
+								$img_w = $large->w;
+								$img_h = $large->h;
+								$img_ratio = $img_w / $img_h;
+								$scale_factor = null;
+								$scale_to_width = 500;
+								$scale_to_height = 500;
+								$img_scale_down_w = $img_w / $scale_to_width;
+								$img_scale_down_h = $img_h / $scale_to_height;
+								$scaled_height = intval($img_h / $img_scale_down_w);
+							
+							
+								if ($img_ratio > 1.0) {
+									// horizontal
+									// scale by h
+									$h_f = $img_h / 360;
+									//print "HF $h_f<br/>";
+									// so what is the width then
+									$new_w = intval($img_w / $h_f);
+									//print "NW $new_w<br/>";
+									$crop_dist = intval(($new_w - 360) / 2);
+									print '<div class="tweet-outer-right"><div class="tweet-inner-img-right"><div class="twitter-img-right"><img src="' . $img_url . '" style="width: ' . 		
+										$new_w 	
+										. 'px; height: 360px; margin-left: -' . $crop_dist . 'px;" /></div><div class="tweet-inner-img-text">' . 
+										'<p class="tweet-date-media-right">' . $tweet_created . '</p>' . $tweet_text .
+										'<p class="tweet-user-media-right">' . $right_twitter_data->user->name .
+										'</p>' . 
+										'<p class="tweet-user-handle-media-right">@' . $right_twitter_data->user->screen_name . '</p>' . 
+										'<br/></div></div></div>';
+									} else {
+										// vertical
+									// scale by h
+									$h_f = $img_w / 360;
+									//print "HF $h_f<br/>";
+									// so what is the width then
+									$new_w = intval($img_h / $h_f);
+									//print "NW $new_w<br/>";
+									$crop_dist = intval(($new_h - 360) / 2);
+									print '<div class="tweet-outer-right"><div class="tweet-inner-img-right"><div class="twitter-img-right"><img src="' . $img_url . '" style="height: ' . 		
+										$new_w 	
+										. 'px; width: 360px; margin-left: -' . $crop_dist . 'px;" /></div><div class="tweet-inner-img-text">' . 
+										'<p class="tweet-date-media-right">' . $tweet_created . '</p>' . $tweet_text .
+										'<p class="tweet-user-media-right">' . $left_twitter_data->user->name .
+										'</p>' . 
+										'<p class="tweet-user-handle-media-right">@' . $left_twitter_data->user->screen_name . '</p>' . 
+										'<br/></div></div></div>';
+									}
+								} else {
+									// media url too short, assume regular tweet w/o media
+									print '<div class="tweet-outer-right"><div class="tweet-inner">' .
+								'<p class="tweet-date-right">' . $tweet_created .
+								'</p>' . $tweet_text . '<br/>' .
+								'<p class="tweet-user-right">' . $right_twitter_data->user->name .
+								'</p>' . 
+								'<p class="tweet-user-handle-right">@' . $right_twitter_data->user->screen_name . '</p>' . 
+								'</div></div>';
+								}
+					} else {
+						// regular text tweet
+						print '<div class="tweet-outer-right"><div class="tweet-inner">' .
+								'<p class="tweet-date-right">' . $tweet_created .
+								'</p>' . $tweet_text . '<br/>' .
+								'<p class="tweet-user-right">' . $right_twitter_data->user->name .
+								'</p>' . 
+								'<p class="tweet-user-handle-right">@' . $right_twitter_data->user->screen_name . '</p>' . 
+								'</div></div>';
+					}
+					print '<div class="slideshow-caption-line-split-right">' .
+					'<div id="caption-left">' .
+						'<div id="studio-x-location">Studio-X<br/>' . $location . '</div>' .
+					'</div>' . // end left
+					'<div id="caption-right">' .
+						'<div id="title-line"></div>' .
+					'</div>' .
+					'</div>';
 					
 					
-				*/
-				//print_r($node);
+										print '</div>';
+
+					print '</div>'; // end split tweet
+						
+					} // not objects, ignore
+				
+				
+				
+				} // end slideshow
+				print '</div>'; // end slideshow div
 				
 
 			
@@ -668,6 +798,8 @@ if ($display_type == 'Full screen') {
 // ------------------------------------------------------
 // end split screen display
 }	
+		
+		
 		
 		
 		
