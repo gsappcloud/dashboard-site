@@ -25,7 +25,9 @@
   
 
     <section id="main" role="main" class="clearfix">
-      <?php if (!empty($messages)): print $messages; endif; ?>
+      <?php 
+      // disabling this for production if (!empty($messages)): print $messages; endif; 
+      ?>
       <?php if (!empty($mission)): ?><div id="mission"><?php print $mission; ?></div><?php endif; ?>
       <a id="main-content"></a>
       <?php if (!empty($tabs)): ?><div class="tabs-wrapper clearfix"><?php print $tabs; ?></div><?php endif; ?>

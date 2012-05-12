@@ -187,6 +187,7 @@ line-height:100%;
 	font-size: 80%;
 }
 
+
 .p-studiox {
 	position: absolute;
 	z-index: 100;
@@ -260,8 +261,56 @@ line-height:100%;
 .tweet-date {
 	font-size: small;
 	font-weight: normal;
-	color: #333;
+	position: absolute;
+	top: 682px;
+	z-index: 999;
+	left: 0px;
 }
+
+.tweet-date-media {
+	font-size: small;
+	font-weight: normal;
+	position: absolute;
+	top: 626px;
+	z-index: 999;
+	left: -56px;
+}
+
+.tweet-user {
+	font-size: 20px;
+	font-weight: bold;
+	position: absolute;
+	top: 639px;
+	z-index: 999;
+	left: 170px;
+}
+.tweet-user-media {
+	font-size: 20px;
+	font-weight: bold;
+	position: absolute;
+	top: 583px;
+	z-index: 999;
+	left: 115px;
+}
+.tweet-user-handle {
+	font-size: 14px;
+	font-weight: normal;
+	position: absolute;
+	top: 670px;
+	z-index: 999;
+	left: 170px;
+	color: #666;
+}
+.tweet-user-handle-media {
+	font-size: 14px;
+	font-weight: normal;
+	position: absolute;
+	top: 613px;
+	z-index: 999;
+	left: 115px;
+	color: #666;
+}
+
 /* end widget style */
 
 
