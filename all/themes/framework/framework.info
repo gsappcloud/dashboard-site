@@ -11,6 +11,9 @@ regions[content] = Content
 regions[navigation] = Navigation
 regions[footer] = Footer
 
+scripts[] = dashboard.js
+scripts[] = js/jquery.cycle.all.js
+
 
 ; Information added by drupal.org packaging script on 2011-11-09
 version = "6.x-3.3"

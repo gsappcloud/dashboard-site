@@ -31,6 +31,21 @@ Font sizes: 16px base font with 24px line-height
 
 Equation for font sizing: 
   Desired px ÷ Default (or parent) px = em size
+  
+  colors
+  
+  Rio/SP: e0fcea
+
+NY:  e0faff
+
+Beijing/Tokyo: ffebeb
+
+Mumbai: fff3e0
+
+Amman: ffe0f4
+
+  
+  
 ------------------------------------------------*/
 
 /**
@@ -46,7 +61,7 @@ Equation for font sizing:
 body {
   background: #fff;
   color: #222;
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 100%;
   line-height: 1.5;
   margin: 0;
@@ -100,6 +115,156 @@ a:focus { outline: thin dotted; }
 
 a:hover, a:active { outline: 0; }
 
+/* widget style */
+
+.view .view-content .views-row {
+	background-color: #ddd;
+	/* set to monitor, should be standard for all items */
+	width: 1366px;
+	height: 768px;
+	margin: 0;
+	float: left;
+	padding: 25px;
+	
+	/* padding inside is like 25 px or maybe 28
+	drop shadow w 13px
+	*/
+	
+}
+
+#container {
+  margin: 0 auto 0 auto;
+  padding: 0;
+  width: 1366px;
+  height: 768px;
+}
+
+.inner-slideshow-content {
+	width: 1306px;
+	height: 768px;
+}
+
+
+.inner-slideshow-image {
+	width: 1306px;
+	height: 614px;
+	overflow: hidden;
+	margin: auto;
+	-webkit-box-shadow: 5px 5px 15px #666;
+	box-shadow: 5px 5px 15px #666;
+
+}
+
+.inner-slideshow-image img {
+	width: 1306px;
+	/*margin: -75px 0 0 -100px; */
+}
+
+#slideshow-caption-line {
+	width: 1306px;
+	height: 130px;
+	padding-top:20px;
+	position: relative;
+	top: -150px;
+}
+#caption-left { float: left; width: 170px;}
+#studio-x-location {
+font-weight: bold;
+font-size: 120%;
+line-height:100%;
+}
+#date {
+	font-size: 80%;
+}
+#caption-right {
+	float: left;
+	}
+#title-line {
+	font-weight: bold;
+	font-size: 120%;
+}
+#subtitle-line {
+	font-size: 80%;
+}
+
+.p-studiox {
+	position: absolute;
+	z-index: 100;
+	font-weight: bold;
+	font-size: 120%;
+	line-height: 100%;
+	top: 654px;
+	left: 30px;
+}
+
+.p-location {
+	position: absolute;
+	z-index: 100;
+	font-weight: bold;
+	font-size: 120%;
+	line-height: 100%;
+	top: 676px;
+	left: 30px;
+}
+
+.p-flickr-caption {
+	position: absolute;
+	z-index: 100;
+	font-weight: bold;
+	font-size: 120%;
+	line-height: 100%;
+	top: 654px;
+	left: 300px;
+}
+
+.tweet-outer {
+	width: 1306px;
+	height: 614px;
+	background-color: #fff;
+
+}
+
+.tweet-inner {
+	width: 1200px;
+	height: 500px;
+	margin: 55px auto 55px auto;
+	font-weight: bold;
+	font-size: 450%;
+	text-wrap: unrestricted;
+}
+
+.twitter-img {
+	width: 500px;
+	height: 500px;
+	overflow: hidden;
+	margin-right: 55px;
+	float: left;
+}
+
+.tweet-inner-img {
+	width: 1200px;
+	height: 500px;
+	margin: 55px auto 55px auto;
+	font-weight: bold;
+	font-size: 320%;
+	float: left;
+	position: relative;
+	left: 55px;
+}
+
+.tweet-inner-img-text {
+	width: 643px;
+	float: left;
+}
+
+.tweet-date {
+	font-size: small;
+	font-weight: normal;
+	color: #333;
+}
+/* end widget style */
+
+
 /* apply common styling after reset.css */
 
 li ul, li ol {  margin: 0; }
@@ -119,12 +284,6 @@ th { padding-right: 1em; }
 /**
  * 2.LAYOUT
  */
-
-#container {
-  margin: 0 auto;
-  padding: 0 10px;
-  width: 940px;
-}
 
 /**
  * 3.MAIN
