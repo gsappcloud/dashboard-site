@@ -467,9 +467,6 @@ if ($display_type == 'Full screen') {
 							'</div></div>';
 						}
 
-						
-
-					
 
 					} // else: url len < 10 skip
 
@@ -503,7 +500,56 @@ if ($display_type == 'Full screen') {
 				// skipping
 			} else {
 				// ind flickr items
-			}
+				$flickr_links;
+				$flickr_links_split;
+				
+				$left_items = array();
+				$right_items = array();
+				foreach($flickr_links as $key=>$value) {
+					if (strlen($value['fragment']) > 10) {
+						$left_items[] = $value;
+					}
+				}
+				foreach($flickr_links_split as $key=>$value) {
+					if (strlen($value['fragment']) > 10) {
+						$right_items[] = $value;
+					}
+				}
+				
+				$num_l = count($left_items);
+				$num_r = count($right_items);
+				// normalize sizes				
+				if ($num_l > $num_r) {
+					$diff = $num_l - $num_r;
+					$i = 0;
+					for ($c = 0; $c < $diff; $c++) {
+						array_push($right_items, $right_items[$i]);
+						$i++;
+						if ($i > $num_r) {
+							$i = 0;
+						}
+					}
+					
+				} else if ($num_r > $num_l) {
+					$diff = $num_r - $num_l;
+					$i = 0;
+					for ($c = 0; $c < $diff; $c++) {
+						array_push($left_items, $left_items[$i]);
+						$i++;
+						if ($i > $num_l) {
+							$i = 0;
+						}
+					}
+				}
+			//	print_r($left_items);
+			//	print_r($right_items);
+				
+				
+				
+				
+				
+				
+			} // end flickr split individual
 		} else {
 			// twitter 
 			if ($set == TRUE) {

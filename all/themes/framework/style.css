@@ -551,6 +551,37 @@ top: 15px;
 left: 35px;}
 
 
+/* static image */
+div.static-image-image {
+	width: 1306px;
+	height: 614px;
+	overflow: hidden;
+	margin: auto;
+	-webkit-box-shadow: 5px 5px 15px #666;
+	box-shadow: 5px 5px 15px #666;
+}
+
+p.static-image-title {
+font-size: 100%;
+font-weight: bold;
+position: absolute;
+z-index: 999;
+left: 0;
+top: 623px;
+color: black;
+
+}
+
+p.static-image-caption {
+font-size: 12px;
+font-weight: normal;
+position: absolute;
+z-index: 999;
+left:0;
+top: 648px;
+color: black;
+}
+
 /* end widget style */
 
 

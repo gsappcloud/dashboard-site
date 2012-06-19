@@ -1,3 +1,21 @@
+<?php if (isset($_GET['callback'])) { 
+
+	// somehow execute only the callback logic...
+	header("content-type: application/javascript");
+	
+
+	$c = trim($content);
+	print $c;
+
+?>
+	
+
+<?php } else { ?>
+
+
+
+
+
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="ie6 ie" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"> <![endif]-->
 <!--[if IE 7]>    <html class="ie7 ie" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"> <![endif]-->
@@ -59,3 +77,5 @@
 
 </body>
 </html>
+
+<?php }  // ending json callback statement ?> 
