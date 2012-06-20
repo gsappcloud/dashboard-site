@@ -5,16 +5,23 @@
 <?php
 
 
+	// if num items is 0 then show the entire feed
+	// widget type should prefetch some kind of pre-made logo etc
+	// widget size is basically 1 column is 240px wide, 2 500px wide
+	// height is proportional with images...
+
+
   $flickr_set = $node->field_widget_url[0]['url'];
+  $callback_function_name = null;
 	$callback_function_name = $_GET['callback'];
   $num_items = $node->field_widget_limit[0]['value'];
   $description = $node->field_widget_text[0]['view'];
 	
-	// jquery cycle
+	// additional styling parameters
 	$cycle_duration = $node->field_widget_cycle_duration[0]['value'];
-	$img_w = $node->field_widget_image_max_w[0]['value'];
-	$img_h = $node->field_widget_image_max_h[0]['value'];
-	
+	$widget_size = $node->field_widget_size[0]['value'];
+	$widget_type = $node->field_widget_type[0]['value'];
+
 
 	$set_str_pos = strpos($flickr_set, 'sets');
 	$set_id = substr($flickr_set, ($set_str_pos + 5));
@@ -46,15 +53,56 @@
 	
 	// add cycle params
 	$flickr_rsp_obj['cycle']['duration'] = $cycle_duration;
-	$flickr_rsp_obj['cycle']['img_w'] = $img_w;
-	$flickr_rsp_obj['cycle']['img_h'] = $img_h;
+	$flickr_rsp_obj['widget']['size'] = $widget_size;
+	$flickr_rsp_obj['widget']['group'] = $widget_type;
+	$flickr_rsp_obj['widget']['node_type'] = $node->type;
+	$flickr_rsp_obj['widget']['node_id'] = $nid;
+	
+	// must calculate image resized coordinates here based on the widget-size and include these numbers
+	
+	$target_w = null;
+	$target_h = null;
+	$aspect = null;
 	
 	
+	switch ($widget_size) {
+		case '1-column': 
+			$target_w = 240; $target_h = 240; break;
+		case '2-column':
+			$target_w = 500; $target_h = 375;
+	}
+
+	foreach($flickr_rsp_obj['photoset']['photo'] as $key=>&$value) {
+		// calc the dimensions
+		$orig_w = $value['width_o']; $orig_h = $value['height_o'];
+		$aspect = $orig_h / $orig_w;
+		$value['aspect'] = round($aspect, 2);
+		
+		if ($aspect > 1) { // portrait size, scale to w
+			$scale_factor = $target_w / $orig_w;
+			$new_h = intval($orig_h * $scale_factor);
+			$value['target_h'] = $new_h;
+			$value['target_w'] = $target_w;
+			$value['cropdist'] = intval(($new_h - $target_h) / 2);
+		} else { // landscape
+			$scale_factor = $target_h / $orig_h;
+			$new_w = intval($orig_w * $scale_factor);
+			$value['target_w'] = $new_w;
+			$value['target_h'] = $target_h;
+			$value['cropdist'] = intval(($new_w - $target_w) / 2);
+		}
+	}
+
 	// check if valid
 	if ($flickr_rsp_obj['stat'] == 'ok') {
 		print $callback_function_name . '(' . json_encode($flickr_rsp_obj) . ')';
 	} else {
-		print 'error'; //TODO 
+		// error or full node
+		if ($callback_function_name == null) {
+			print $content;
+		} else {
+			print 'error w JSON output...'; //TODO 
+		}
 	}	
 ?>
 
