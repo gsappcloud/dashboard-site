@@ -1,14 +1,9 @@
 <?php if (isset($_GET['callback'])) { 
-
 	// somehow execute only the callback logic...
 	header("content-type: application/javascript");
-	
-
 	$c = trim($content);
 	print $c;
-
 ?>
-	
 
 <?php } else { ?>
 
